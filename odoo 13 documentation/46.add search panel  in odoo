@@ -1,0 +1,11 @@
+to add a search panel target the search view in your model 
+and add <searchpanel></searchpanel> tag
+
+
+<search>
+
+<searchpanel>
+ < field name='any_field'/> 
+</searchpanel>
+
+</search>

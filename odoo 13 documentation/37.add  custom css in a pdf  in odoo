@@ -1,0 +1,14 @@
+create a static file " this is by convention " and create the following directory : static/src/style/style.css
+to add a custom css in odoo all that you need to do is to add the style tag   
+
+<link rel="stylesheet" href="static/src/style/style.css"/>
+and then start adding classes and ids " classes prefered " 
+
+then customize as much as you want :))) 
+
+small progress is good but it kills 
+
+
+
+
+TRUST LONG PROCESS

@@ -1,0 +1,198 @@
+just create a wizard.xml and a wizard.py files 
+add the transient model and all that stuff
+then in the xml add the menus and actions ( you know how ) 
+
+
+
+all that matters is the button in the form view 
+adjust it to be from create/cancel to Print/cancel 
+
+so in the footer just code 
+
+<footer>
+<button name='print_pdf_report' string='Print' class='btn-primary' type='object'/> 
+<button special ='cancel' string='Cancel' class='btn-secondary'/>
+
+</footer>
+
+now let's define the function of the name 'print_pdf_report'
+
+in the wizard.py file
+now let's target the action on the button
+there are many ways to write print functions but this is the easiest one 
+
+1. in the wizard file create fields that's are related to the model you are creating, e.g i have openacademy.sessions that has so many fields e.g
+ 
+    start_date = fields.Date(string="Start Date")
+    duration = fields.Float(string='Duration', digits=(6, 2), help='Duration in days')
+    end_date = fields.Date(string='End Date', compute='_get_date', inverse='_get_date_inverse')
+    user = fields.Many2one('res.partner', ondelete='cascade', string='Teacher', domain=[('country_id', '=', 'United States')])
+   
+so in the wizard the create fields that are related to the fields you want to link to 
+	start_date = fields.Date(string='start date')
+	end_date = fields.Date(string='start date')
+	responsible_id = fields.Many2one(string='Responsible')
+	course_id = Many2one(string='Course')
+   
+2. the name of the function has to be the same as the name of the button 
+def print_pdf_report(self):
+
+3.now in the def print_pdf_report(self): function it'll have 2 reserved functions , data and and self.env.ref
+  data = {
+            'form': self.read()[0]
+        }        
+
+        return self.env.ref('openacademy.wizard_openacademy_report').report_action(self, data=data)
+        
+        
+the data is the data of the fields that you're targetting
+and self.env.ref will include this data into the template 
+self.env.ref('custom_addon.id_of_the_report_in_the_xml_file').report_action(self, data=data)
+
+'form' : self.read()[0] provides the information of the select fields 
+so here in this wizard i have 4 fields, it will provide me with the 4 fields + the 6 fields that are already create with any user :) 
+
+4. now to link the wizards fields with the fields of the selected model ( in our example it is 'openacademy.session' )
+
+so to link it use : 
+
+self.env['openacademy.session'].search([])
+
+
+what to put inside of search ? 'DOMAIN'
+where does domain come from
+domain = []
+what are you gonna pass inside of domain???
+the fields of the wizard ( the 4 ones ) 
+so you'll say 
+domain = []
+        start_date = self.start_date
+        if start_date:
+            domain += [('start_date', '=', start_date)]
+        end_date = self.end_date
+        if end_date:
+            domain += [('end_date', '=', end_date)]
+        course_ids = self.course_id.ids
+        if course_ids:
+            domain += [('course', '=', course_ids)]
+        responsible_id = self.responsible_id.id
+        if responsible_id:
+            domain += [('user', '=', responsible_id)]
+            
+            
+        in the domain += ['the targetted model', 'operator', the wizard field you have boom]
+and you're gonna pass the domain value in the 
+session =  self.env['openacademy.session'].search([domain])
+
+	and in the data dictionary you're gonna define session 
+		
+	data = {
+            'form': self.read()[0],
+            'session': session, # the key 'session' is what you're gonna pass in the qweb report
+
+        }
+
+
+now that you're done with the wizard file, let's go to the template file
+
+assume the template is already made and you want to add a table , i'll add mine
+
+  <table class="table table-bordered mt32">
+                              <thead>
+                                  <tr>
+                                      <th>Course</th>
+                                      <th>Start Date</th>
+                                      <th>End Date</th>
+                                      <th>Responsible</th>
+                                  </tr>
+                              </thead>
+                              <tr>
+                                  <t t-if="form.get('course_id')">
+                                      <td>Course : <t t-esc="form['course_id'][1]"/></td>
+                                  </t>
+                                  <t t-if="form.get('start_date')">
+                                      <td>Course : <t t-esc="form['start_date']"/></td>
+                                  </t>
+                                  <t t-if="form.get('end_date')">
+                                      <td>Course : <t t-esc="form['end_date']"/></td>
+                                  </t>
+                                  <t t-if="form.get('responsible_id')">
+                                      <td>Course : <t t-esc="form['responsible_id'][1]"/></td>
+                                  </t>
+
+                              </tr>
+                          </table>
+
+THIS table only prints the value of the selected values, means only one value, but if you wanna get the record of the targetted model then you have to loop with t-foreach 
+
+<t t-foreach="session (or everything that's set to the self.env)" t-as="literally anything"
+
+   <t t-foreach="session" t-as="jox"> #name it whatever you want
+                                      <tr>
+                                          <td><span t-esc="jox['name']"/></td>
+                                          <td><span t-esc="jox['start_date']"/></td>
+                                          <td><span t-esc="jox['end_date']"/></td>
+                                          <td><span t-esc="jox['user'][1]"/></td>
+                                      </tr>
+                                  </t>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

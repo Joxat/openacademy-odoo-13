@@ -1,0 +1,9 @@
+to make the field readonly on attribute basis
+
+so target a certain field
+
+add the following parameter
+
+attrs={'readonly':domain}
+
+attrs={'readonly':[('state'='draft')]}

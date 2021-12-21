@@ -1,0 +1,70 @@
+sequence as the name tells is sequence of names 
+
+LOL/2010/0001
+Freefire/2022/0001
+
+they are showen below the header always 
+
+
+to see how add a sequence first navigate the sequence model 
+
+settings > technical > sequence
+
+so the sequence model is ir.sequence 
+click on any sequencec and then find the external id of it
+
+e.g this ready-made xml code 
+
+  <record id="openacademy_course" model="ir.sequence">
+            <field name="name">openacademy course</field>
+            <field name="code">openacademy.course.sequence</field>
+            <field name="prefix">Course/%(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">4</field>
+  </record>
+  
+  
+  now create a sequence xml file in the data file
+  add it to the manifest file
+  
+  before applying sequenece make sure that you have a field name with a default value of something so the sequecnce affect 
+  has to appear in the Form view cool then, 
+  
+  so 
+  
+  name = fields.Char(string="Name", readonly=True, required=True, default="new", index=True)
+  new is the conventional naming for the sequence function , on regular basis you can call it 
+  whatever you want
+  
+  now let's create a function that represents the sequence 
+  
+  @api.model
+  def create(self,vals):
+   if vals.get(name,'new') == 'new':
+            vals['name'] = self.env['ir.sequence'].next_by_code('openacademy.course.sequence')
+  return super(course,self).create(vals)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

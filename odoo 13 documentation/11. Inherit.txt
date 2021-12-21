@@ -1,0 +1,12 @@
+let's say we have 2 different 
+_inherit always have
+
+most of the work will be on inhertance 
+mostly using the partner table ( res.partner )
+
+to use it we'll use _inherit 
+it is altering the layout and the work around of the existing model
+
+in _inherit it says whatever the operation done it has to be done in the existing table ( model ) not on the new table
+
+

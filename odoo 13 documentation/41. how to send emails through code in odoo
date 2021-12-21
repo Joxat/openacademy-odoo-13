@@ -1,0 +1,95 @@
+to send emails through odoo 
+
+1. create a data directory 
+2. create templates in xml file 
+3. add xml in the manifest file 
+4. add button inside of form view
+5. add python method to send emails
+6. upgrade the module 
+
+
+<record id="any_id" model="mail.template">
+  <field name="name"></field>
+  <field name="email_from"></field>
+  <field name="subject"></field>
+  <field name="lang"></field>
+  <field name="email_to"></field>
+  <field name="model_id"></field>
+  <field name="report_template" ref=""/>
+  <field name="report_name"></field>
+  <field name="auto_delete" eval=""/>
+  <field name="body_html">
+  
+  
+  
+  
+  
+  
+  
+  </field>
+</record>
+   
+
+<record id="any_id" model="mail.template">
+  <field name="name">Session - Send By Email</field>
+  <field name="email_from">$(ctx['email_from'])</field> #common syntax for email_from
+  <field name="subject">type here name of the subject</field>
+  <field name="lang">$(object.lang)</field>
+  <field name="email_to">$(ctx['email_to'])</field> #common syntax for email_to
+  <field name="model_id" ref="modelname.model_name"/>
+  <field name="report_template" ref="model.action_of_template"/>
+  <field name="report_name">Name ${object.name}</field>
+  <field name="auto_delete" eval="True/>
+  <field name="body_html">
+	
+  </field>
+</record>
+
+
+in the bodyhtml you just add the conventioal syntax of odoo
+
+
+
+
+
+
+	<field name="body_html">![CDATA[
+	<table border="0" cellpadding="0" width="590" style="background-color:white;color: solid black; border-collapse; margin-left:20px ; margin-right:20px; >
+	<tr>
+	   <td>
+	      <div>
+	        <p> hello $ctx{'attendee'} </p>
+	        <p> The session ${object.name} for the course ${object.course_id.course_name}</p>
+	        Session will start on date {object.start_date} and ends on {object.end_date}
+	        <p> Session will be {object.duration} hours long</p>
+	        <p>Thank You</p> 
+	      </div>
+      	  </td>
+	</tr>
+	</table>
+	]]
+		
+  	</field>
+
+
+
+
+
+ffs and now in the .py file add the following ( it's much more like a conventional form
+
+       def action_email(self):
+        for attendee in self.attendees:
+            ctx = {}
+            email_list = {attendee.email}
+            if email_list:
+                ctx['email_to'] = ','.join([email for email in email_list if email]) #conventional  
+                ctx['email_from'] = self.env.user.company_id.email
+                ctx['send_email'] = True
+                ctx['attendee'] = attendee.name
+                template = self.env.ref('openacademy.openacademy_session_send_email')
+                template.with_context(ctx).send_mail(self.id, force_send=True, raise_exception=False)
+     
+
+
+
+

@@ -1,0 +1,51 @@
+just create a wizard.xml and a wizard.py files 
+add the transient model and all that stuff
+then in the xml add the menus and actions ( you know how ) 
+
+
+
+all that matters is the button in the form view 
+adjust it to be from create/cancel to Print/cancel 
+
+so in the footer just code 
+
+<footer>
+<button name='print_pdf_report' string='Print' class='btn-primary' type='object'/> 
+<button special ='cancel' string='Cancel' class='btn-secondary'/>
+
+</footer>
+
+now let's define the function of the name 'print_pdf_report'
+
+in the wizard.py file
+
+
+def print_pdf_report(self): ---> this is the function, now follow the next steps carefully
+  self.env.ref() ----> first step is to define the xml file in which you want to move the data to 
+  let's say we have an xml file with the name openacademy_report_pdf.xml
+  so if we have a report that has the following parameters 
+  self.env.ref(model.name_of_xml_file).report_action(self, data=data)
+  
+  <report id='openacademy_print_pdf'
+  	  model ='openacadmy.wizard.pdf'
+  	  name='openacademy.pdf_template'
+  
+  
+   />
+ 
+
+
+in order to report and get the data from different models use models.Abstract
+before you type it make sure that you are aware of the main syntax
+
+class PDF_report(models.AbstractModel): 
+   _name = report.model.the_name_of_the_template_of_the_wizard
+   _name = report.the value of the name in the report e.g  name='openacademy.pdf_template'this is what's gonna be passed in  
+   _name = report.openacademy.openacademy.pdf_template
+   
+   
+   
+   
+
+
+

@@ -1,0 +1,22 @@
+Add barcodes
+
+    Barcodes are images returned by a controller
+    Quite easy thanks to the Qweb syntax
+
+<img t-att-src="'/report/barcode/QR/%s' % 'My text in qr code'"/>
+
+    More parameters can be passed as a query string
+
+<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', 'text', 200, 200)"/>
+
+
+in the 'text' value you just change the value of the text to anything you want !!!!! lol
+
+
+add it wherever you want in the page but it is always recommended to add it in the top right of the page 
+
+'Codabar', 'Code11', 'Code128', 'EAN13', 'EAN8', 'Extended39', 'Extended93', 'FIM', 'I2of5', 'MSI', 'POSTNET', 'QR', 'Standard39', 'Standard93', 'UPCA', 'USPS_4State
+
+
+for the following: ('QR', 'text', 200, 200) 
+('type_of_BC', 'value',width ,height )

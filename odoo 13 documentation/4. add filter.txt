@@ -1,0 +1,9 @@
+as same as in adding a field 
+we can add filters 
+
+just add in the 
+<field name = 'arch' type = 'xml'>
+<filter string  name = 'filter_to_purchase' position ='after'>
+<filter string = 'Low Price' name = 'filter_to_low' domain = [('low_sale','&lt=;', 100)] />
+</field>
+</field>

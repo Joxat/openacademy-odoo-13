@@ -1,0 +1,53 @@
+here you're gonna learn 3 things
+
+1. how to use xpath
+2. how to inherit from a certain module 
+3. how to apply some changes on the inherited module 
+
+let's start
+
+add an xml file in the reports file and name it accordingly to the module 
+sale_qweb_inherit.xml
+
+now in the odoo find the external id of the module , for example i'm in the sale and i want to print the quotation
+first navigate the name written on the print e.g it is Quatation/order
+go to setting --> technical --> reports 
+type the name of the report in the search bar "Quatation/order"
+then navigate inside 
+then look up for the Template Name : e.g "report_saleorder"
+look up for that name in the addons file
+now after that 
+find the template that has the same name as the template's name "report_saleorder"
+
+<template id="report_saleorder">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+now see the class that has the t-call and use it for inhertation
+
+<template id="report_saleorder_document_inherited" inherit_id="sale.report_saleorder_document">
+  
+</template>
+
+now navigate the report_saleorder_document in the addon files
+see which changes you wanna make
+
+and use the xpath way to target a certain tag 
+and simply it'll look more like 
+
+xpath expr="//" it starts with double slashes"//"
+then you start targetting divs and if happen and there are multiple divs that are on the same flow then you'll use an attribute called [hasclass] e.g div[hasclass('class_name')]
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+YOU ADD DOMAIN IN customaddon
+
+
+to add a domain to your custom addon file 
+add a field that should look like in the record tag of actions and above the <record type = 'arch'...> tag 
+<field name ="domain"> [('' , '' , '')] </field>
+
+so the first void takes the field's type , could be type , categ_id
+the second void should take , = , >= , <= , &lt;= ,
+the third void should take the selection of the field's type 
+
+so it should look more like for example
+<field name ="domain"> [('type' , '='  , 'service')] </field>
+

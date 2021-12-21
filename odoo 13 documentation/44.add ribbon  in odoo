@@ -1,0 +1,19 @@
+ribbon are the tape that's located on the top right corner whenever you affect e.g the state of the model
+e.g again when you move a state from draft to cancel or complete the ribbon shows at which state you're at or when it is set to a certain state
+
+
+so the syntax of ribbon is simple
+
+
+<widget name='web_ribbon' title='the_title' bg_color="bootstrap selection of colors" attrs="{'invisible':[('state','!=','Cancel')]}"    />
+
+
+
+
+
+
+
+
+
+
+

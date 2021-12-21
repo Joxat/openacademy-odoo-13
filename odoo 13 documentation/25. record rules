@@ -1,0 +1,47 @@
+you just set rules for the records per user
+means a user can have access to this record when the other user doesn't
+it's added in the security file below the group in which you're gonna link it to
+
+
+
+<record id="group_manager" model="res.group">
+  <field name="name">OpenAcademy/Manager</field>
+</record>
+
+<record id="id_name" model="ir.rule">
+<field name="name">Name of the </field>
+<field name="model_id" ref="model_"/>
+<field name=groups"" eval=[(4,ref('model_name.group_manager'))]/> #the name of the group_id in the csv file
+<field name="prem_read" eval=""/>
+<field name="prem_write" eval=""/>
+<field name="prem_create" eval=""/>
+<field name="prem_unlink" eval=""/>
+<field name="domain_force">
+[('','','')]
+</field>
+</record>
+
+----
+
+note that the id of the following 2 records has to be the same as in the .csv file ::)) this is as far as i know
+
+<record id="group_manager" model="res.group">
+  <field name="name">OpenAcademy/Manager</field>
+</record>
+
+<record id="id_anything" model="ir.rule">
+<field name="name">OpenAcademy/Manager </field>
+<field name="model_id" ref="model_openacademy_course"/>
+<field name=groups"" eval=[(4,ref('openacademy.group_manager'))]/> here always it has to be the name of the custom addon before the name of the field that set in the group id in the csv file :))) so here the custom addon is openacademy so it'll look more like openacademy.group_id  :) 
+<field name="prem_read" eval=""/>
+<field name="prem_write" eval=""/>
+<field name="prem_create" eval=""/>
+<field name="prem_unlink" eval=""/>
+<field name="domain_force">
+['|',('responsible_id','=',False),('responsible_id','=','user.id')]
+</field>
+</record>
+
+
+
+

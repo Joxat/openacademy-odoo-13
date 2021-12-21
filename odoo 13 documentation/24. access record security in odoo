@@ -1,0 +1,75 @@
+in odoo there are many types of security that you have to include one by one, one of them is Access record 
+
+before i get started with it 
+
+it is  defined as records of the model "ir.model.access" 
+in the csv file it has set of permissions
+
+read,write,create,unlink
+in the csv file which is named after model ir.model.access.csv
+
+id,name,model_id/id,prem_read,prem_write,prem_create,prem_unlink
+access_idea,idea,idea.idea,base.group_user,1,1,1,0 
+
+so generally to create an access record security 
+create a user through settings -> users -> create
+and then create group Settings -> User and Companies -> Groups
+and then create/or select a group but here we're gonna create
+so create and you'll proceed to a form view with some fields
+
+Application : this is the category set in the __manifest__.py file
+category : 'Test'
+and navigate the access records in the notebook of the view
+you'll see Name,object(model),read,write,create,delete
+this is how to add from the GUI 
+
+but through the back-end
+security
+
+in the security file you add
+security.xml
+and the ir.model.access.csv file
+
+in the security.xml file you create the record in which represents the group the user will belong to? 
+
+<odoo>
+<data noupdate=1>
+<record model='res.group' id="this is the id in which you should insert to gain access record for this group" />
+</data>
+</odoo>
+
+
+<odoo>
+<data noupdate=1>
+<record model='res.group' id="res_group_read_access" />
+<field name="name">Read Sessions</field>
+</record>
+</data>
+</odoo>
+
+
+
+in the ir.model.access.csv file add adjust the model according to the following 
+
+
+id,name,model_id/id,prem_read,prem_write,prem_create,prem_unlink
+access_openacademy_session,openacademy.session,model_openacademy.session,read_access_group,1,1,1,0
+
+id represents the name of the model which in this case is openacademy_session (* the access_ is done by convension or it is already reserved*)
+
+name :name it to whichever you want to name
+
+model_id : this says add model_ + id 
+so it does look like model_openacademy_session(replace the dot(.) with underscore(_) so the model name is openacademy.session but when you want to insert in the model_id attribute you set to replace the . with _ 
+
+group_id/id: this one is the id of the record that's been created in the securtiy.xml file and in this case i called it res_group_read_access
+
+for the latter 4, just set it to whichever 1,0,0,0
+
+
+something to note that the name you pass in the record of the security xml file will be shown in the access record on the framwork on the GUI side , in this case i've called my field name "Read Sessions", so it'll be shown like that :))))))) and this is it for the access record security in odoo FW
+
+
+now after that you just set this group to the user and it'll show the model as what's been set in the .csv file
+
+when you don't set the group_id to something like you leave the blank empty as it is it'll be general to every user set to that group

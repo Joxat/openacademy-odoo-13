@@ -1,0 +1,13 @@
+to filter prodcuts in the sales Module
+click on the bug icon on the nav and then navigate EditControlPanel View
+
+you'll see a list of filters options inside of the Architecture xml file 
+
+now let's say i want to change the price of the product , click on the product and check the infos for the Sales Price and hover the mouse over it and check the field's name
+( list_price )
+now back to the products lists and click on the EditControlPanel View and now see the following
+<filter string = 'name of the filter option ' name = 'any category ' domain = "[('name of the field that filtering should fall into or wants to affect ', logic , value)]"
+for the logic there arthimetic operations : >= , <= , = , but they not written in that way 
+&lt;= less than or equal 
+
+<filter string="Standard Low Price" name="filter_to_Low_Price" domain="[('standard_price','&lt;=',1000)]"/>

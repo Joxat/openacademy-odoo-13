@@ -1,0 +1,28 @@
+chatter is the amount of fields that are located below the form view
+ 
+it's like a formula for Q&A and some stuff
+it includes 3 notebooks
+
+1.send message
+2.Log note
+3.Schedule activity 
+
+don't worry a lot these 3 fields are already written/reserved
+
+to add chatter in you odoo model 
+in your customaddon file inherit the 2 addons in your __manifest__.py file in depends['mail.thread','mail.activity.mixin']
+or use the _inherit method directly by adding 
+
+then in the form inside the xml file add the following fields
+1.message_follower_ids : offers to add followers to the document
+2.activity_ids : to create activities for users for that document
+3.message_ids : to show chat history 
+
+<field name="" wideget="" groups=""/> 
+
+<div class="oe_chatter">
+<field name="message_follower_ids" wideget="mail_followers" groups=""/>
+<field name="activity_ids" wideget="mail_activity"/>
+<field name="message_ids" wideget="mail_thread"/>
+</div>
+

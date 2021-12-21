@@ -1,0 +1,26 @@
+so text decoration parameters change the style of the a row's text based on the corresponding record attribute
+
+syntaxx: 
+decoration-name .  
+and it is put inside of the view,
+<tree decoration-info="field and condition state">
+<tree decoration-info="state=='draft'></tree>
+<form decoration-info="age&lt;5"/> if age is less or equal than 5 change the color to info decorator 
+<kanban decoration-info="field="
+the name refers to a color 
+
+decoration-danger
+decoration-info
+decoration-muted
+decoration-primary
+decoration-success
+decoration-warning
+
+
+decoration-bf : font-weight: bold
+decoration-it : font-weight: italic
+
+there's editable option
+
+editable = 'top', editable='bottom'
+

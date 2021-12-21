@@ -1,0 +1,112 @@
+wizards are just used to ease adding actions in the view of form to multiple records in the form of buttons
+in another words
+
+e.g if you want to add a transient action to the model thru a button to a certain model
+ 
+it's just adding like adding a complenetary to your model thru a button that fires an action
+
+
+in order to create a wizard 
+create a folder named wizard in your model
+and then inside of it create the __init__ and wizard.py files
+and in the __init__ that belongs to the customaddon you got and import it
+then do the regular importations you always do in any py file with noting that instead of uploading Model you replace it with TransientModel and import fields ( can't tell if they have to be Many2one and Many2many only )
+
+
+from odoo import fields, models, api
+
+class Wizard(models.TransientModel):
+    _name = "wizard.session"
+    _description = "Transient Model"
+
+    responsible = fields.Many2one('res.partner', string='Responsible', required=True)
+    attendees = fields.Many2many('openacademy.session', string='Attendee', help="it helps defining attendees if they're missing !!")
+
+
+
+
+
+Wizards are launched thur ir.actions.act_window
+
+<act_window id = "name it anything but something related to it "
+             name = "launch_the_wizard" #or anything
+             binding_model = "model.name" #model in which you want to insert the wizard button/action into 
+             res_model ="wizard_model.name" # wiazrd name you set up on the creation of the wizard itself
+             view_mode ="form"
+             target = "new" #reserved  
+	      />
+
+so when you open the wizard action sometimes you want to make the session's responsible has a default value you'd use self._context
+
+self._context is used with browse and has many dictionaries values, active_id:1, active_ids:[1], allowed_company_ids:[1] 
+
+
+so self._context is used with browse and it takes the following 
+
+return self.env['model_s name'].browse(self._context.get('active_id'))
+
+
+
+so in this example 
+
+
+from odoo import fields, models, api
+
+class wizard(models.TransientModel):
+    _name = "openacademy.wizard"
+    _description = "Transient Model"
+
+    responsible = fields.Many2one('res.partner', string='Responsible', required=True)
+    attendees = fields.Many2many('openacademy.session', string='Attendee')
+
+return self.env['model_s name'].browse(self._context.get('active_id'))
+
+for the last time this self._context does is it let's the value a selected field appear on its field, and it actually depends on the method you set on the .py file field
+e.g if you set it to a default value then the name/value of the selected field will just appear on the fields box
+
+..............
+
+
+to set a button on wizard you need to keep 2 things in mind
+1st is that the button is always set on the footer of the form view and it takes a type of object as well as a css class="oe_highlight" and most importantly it takes a name and this name refers to the name of the function that you've set on the wizard.py file !!!!
+
+so in the form view let's insert a button
+
+<form>
+.....
+..
+..
+<form/>
+<footer>
+<button name="subscribe" class="oe_highlights" type="object" string="subscribe"/>
+or
+<button special="cancel" string="cancel"/>
+</footer>
+
+
+now in the wizard.py file simply create the function that allows you to add an attendee
+
+def subscribe(self):
+  self.session.attendees |= self.attendees
+ 
+note this way only works for one record, which not recommended to use and it is not practical
+but if you want it to be in multiple records then use for loop
+def subscribe(self):
+   for i in self.session:
+    i.attendees |= self.attendees # this says, the new attendees that belongs to the attenedees of the wizard equals to the old attendees + the new attendee, if you know react it's {...self.task: task.id} 
+    return {} 
+    
+    cool
+
+
+
+
+
+
+
+
+
+
+
+
+

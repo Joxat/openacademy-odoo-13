@@ -1,0 +1,40 @@
+to add another item to the menu for example in the sales/products/products 
+the second product( child )  is an item in the products menu ( parent) 
+let's add another product service item in the products menu do the following :
+go to settings
+then technial menu 
+then menu items 
+then search for the menu where you want to add an item in it 
+as mentioned i want to add it in the products menu
+so search for products 
+you'll get to see the following route
+sales/products/products
+so in order to add another item in the products menu , you just need to copy the data of the second prouduct item and change it according to your needs so it'll appear in the menu of products (the parent)
+let's add service item now 
+after you've navigated in the sales/products/products
+and then click on the bugs icon and then navigate view matadata
+then lookup for the XML file for example here it includes : sale.menu_product_template_action
+the sale indicates for the module/app so it belongs in the sales app
+and the .menu_product_template_action is the id of the menudata 
+so in your framework ( vscode - pycharm - eclipse ..... etc )
+navigate for odoo/addons/sale and then search for the action that has product_template_action
+so it'll take you straighforward to a menudata tag with the same id 
+copy it to your custom addon file 
+
+<menu id ="menu_product_template_action" action = " product_template_action" parent="sale.product_menu_catalog" sequence="3" active="False" > 
+
+this is how it looks and now let's adjust it to the needs 
+so add the id to the custom addon e.g  menu_product_template_action_od_sales
+and for the action the name of your attribute e.g service product_template_action_Product_service
+and the sequence put in which order you'd like to see the product on the menu , 3rd, 4th, 5th ... etc and set active to True to be shown on the list
+and then lookup for the action's id and navigate for the record tag and copy it to the custom addons xml file which locates in the views lol ikr 
+then customize it as the following 
+the action of the item action to the id of the record
+CUSTOMIZE IT ON YOUR OWN !!!
+
+
+
+
+
+
+

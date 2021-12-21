@@ -1,0 +1,37 @@
+Graph view in odoo allows aggregated views of the model 
+
+it looks as any other view in odoo
+
+<graph>
+
+
+</graph>
+
+it has parameters such as "type" and this "type" holds many attributes
+
+<graph type="">
+
+</graph>
+
+types of "type" : 
+1. bar : first dimension represents the horizontal axis , the other dimensions represents the aggregated bars within each group lol
+2. pie : dimensional pie
+3. line: diemnsional line 
+
+
+and the field inside of it has 2 values
+1. row
+2. measure
+
+the field has to somewhat relate to some a computed filed 
+so let's create a graph field 
+
+in the .py file add the following 
+
+attendees_no = fields.Integer(string="Attendees Number",compute="_get_attendee_no")
+
+@api.depends('attendees')
+def _get_attendee_no(self):
+ self.attendees_no = len(self.attendees)
+ 
+ now 

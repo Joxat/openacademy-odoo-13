@@ -1,0 +1,23 @@
+to call a python method in qweb report simply do the following : 
+
+
+
+1. in the located .py file that has the model's details just add a plain python function
+e.g 
+def get_attendees_no(self): 
+   return (self.field) #This field should return the number of attendees 
+   ( this is just an example) 
+   
+
+2. now in the meant qweb xml file just add a <t/> tag with t-esc included 
+e.g <h3> <t t-esc=""/> now in the blank add the doc or the set value that's been set when 
+you decided to loop through it 
+this is a bit weird but lemme explain 
+
+<t t-foreach="docs" t-set="doc">
+this "doc" of "t-set" is what's used to call the python's method
+now let's call it again 
+
+<h3> <t t-esc="doc.get_attendees_no()"/></h3>
+
+ now in the report this method should call the number of attendees

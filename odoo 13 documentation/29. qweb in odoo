@@ -1,0 +1,67 @@
+the report engine is based on QWeb, Twitter Bootstrap and Wkhtmltopdf
+
+the report consists of 2 elements
+
+it.actions.report for which a <report> shortcut element is provided 
+
+<report
+id="openacademy_session" #any id , it has to be unique 
+model="openacademy.session"
+string="Session Report"
+report_type="qweb-pdf" # or report_type="qweb-html"
+name="openacademy.report_session_view" name of the customaddon for example mine is openacademy.name_in_which_you're_gonna_put_in_the_id_of_template    
+file="openacademy.report_session"
+attachment_use="True"
+attachment="here you set the logic ??? and you can leave it empty"
+/>
+
+THIS IS THE STANDARD QWEB view for the report !!!!!!! excited!!!!!!
+
+
+<template id="report_session_view"> #here in the id you pass in the name of the report without the name of the addon
+ <t t-call="web.html_container"> #contains the report 
+   <t t-foreach="docs" t-as="doc"> #foreach to loop through each record "doc" that's contained in the "docs" and print each record in a spereate page
+    <t t-call="web.external_layout">#this adds header and footer for each report
+     <div class="page">
+     <h1 t-field="doc.field's name"/>
+     <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/> </p>
+     <ul>
+       <t t-foreach="doc.attendee">
+        <li> <span t-field="attendee.name"/> 
+        </li>
+       </t>
+     </ul>
+     </div>
+    </t>
+   <t>
+ </t>
+</template>
+
+
+.....
+
+to select on of odoo's ready-made templates then go to settings and navigate to businees documents -> layouts 
+then click on Configure document layout 
+and select the type in which you want to change the style of the report to
+for example standard and in the layout you'll see the value of the xml id that you'll inherit from :) 
+
+.......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

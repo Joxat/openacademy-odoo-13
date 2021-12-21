@@ -1,0 +1,52 @@
+there's a reserved syntax for custom addons
+
+for tree the conventional syntax 
+
+<record model = 'ir.ui.view' id ='view_name>
+<field name = 'name' = view.name </field>
+<field name = 'model' > model.Model </field>
+<field name = 'priority' eval = '1' />
+<field name ='arch' type ='xml'>
+
+</field>
+
+now let's to fill it according to our custom addon 
+
+<record model = 'ir.ui.view' id ='view_discount_tree>
+<field name = 'name' > view.discount.tree </field>
+<field name = 'model' > discount.discount </field>
+<field name = 'priority' eval = '1' />
+<field name ='arch' type ='xml'>
+ <tree string = 'Discounts'>
+<field name ='prodcut'>
+<field name = 'discount_Percentage'>
+</tree>
+</field>
+
+
+for form view it is the same as in tree , or lemme say almost every view type
+
+<record model = 'ir.ui.view' id ='view_discount_form>
+<field name = 'name' > view.discount.tree </field>
+<field name = 'model' > discount.discount </field>
+<field name = 'priority' eval = '1' />
+<field name ='arch' type ='xml'> 
+<form string = 'Discount'>
+	<group colspan = 4 >
+	<seperator string = 'General'  colspan = '2'>
+	<group colspan = 2 , col = 2>
+	   <field name = ''> 
+	   <field name = ''>
+	</group>
+
+	<notebook>
+	 <page String = 'Discount'>
+	   <field name = 'description'>
+	</page>
+
+	</notebook>
+</form>
+</field>
+
+
+

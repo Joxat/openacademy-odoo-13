@@ -1,0 +1,14 @@
+calendar view in odoo is as the same way as in tree form
+
+<calendar>
+</calendar>
+
+it has a few parameters:
+1. date_start
+2. date_end
+3. string
+
+
+<calendar start_date="" end_date="" string="">
+
+</calendar>

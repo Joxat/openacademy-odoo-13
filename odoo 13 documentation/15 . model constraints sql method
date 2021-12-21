@@ -1,0 +1,44 @@
+so in the sql method affects model's fields
+it depends on a certain reserved fields on the postgresql
+
+_sql_constraints = [
+
+('string','the reserved constraint','message to be shown')
+]
+
+_sql_constraints = [
+
+('whatever',
+'check(field1=!field2)',
+'message to be shown')
+
+_sql_constraints = [
+
+('name and description check',
+'check(name=!description)',
+'name and description should ont be the same')
+
+('name and description check',
+'unique(name)',
+'name field should be unique')
+
+]
+
+
+-- notes: 
+this method only works for the fields in the same group only 
+
+like in the form view for example
+<form>
+<group>
+<field name = 'something1'/>
+<field name = 'something2'/>
+</group>
+<group>
+<notebook>
+<field name = 'something3'>
+</notebook>
+</gruoup>
+</form>
+
+so here you cannot link something1 or something2 to something3 field since they don't belong to the same group , yeaaaaaaaaaaaah

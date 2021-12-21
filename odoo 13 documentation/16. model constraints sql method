@@ -1,0 +1,20 @@
+copy ORM method is used to override the sql_constraints method you check
+
+def copy(self,default={})
+   default['field1'] = "copy ("+self.name")"
+   return super(model_name,self).copy(default=default)
+   
+
+
+
+
+    def copy(self, default={}):
+        copied_field = self.search_count(
+            [('course', '=like', u"Copy of {}%".format(self.name))])
+        if not copied_field:
+            new_field = u"Copy of {}".format(self.name)
+        else:
+            new_field = u"Copy of {} ({})".format(self.name, copied_field)
+        default['name'] = new_field
+        return super(sessions, self).copy(default=default)
+
