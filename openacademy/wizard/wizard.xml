@@ -19,8 +19,8 @@
                         <field name="duration"/>
                     </group>
                     <group>
-                        <field name="course_id"/>
-                        <field name="responsible_id"/>
+                        <field name="course"/>
+                        <field name="user"/>
                     </group>
                 </group>
                 <footer>

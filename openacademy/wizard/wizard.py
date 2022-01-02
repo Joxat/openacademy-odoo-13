@@ -8,7 +8,6 @@ class wizard(models.TransientModel):
 
     def _defualt_id(self):
         return self.env['openacademy.session'].browse(self._context.get('active_id')) #this just fills in the field in which it is specified to
-
     #fields
 
     session = fields.Many2many('openacademy.session', string='Responsible', required=True, default=_defualt_id)
@@ -28,8 +27,8 @@ class Openacademy_pdf_report(models.TransientModel):
     start_date = fields.Date(string='From')
     end_date = fields.Date(string='to')
     duration = fields.Float(string='duration', readonly="True")
-    course_id = fields.Many2one('openacademy.course', string='Course')
-    responsible_id = fields.Many2one('res.partner', string='Responsible')
+    course = fields.Many2one('openacademy.course', string='Course')
+    user = fields.Many2one('res.partner', string='Responsible')
     attendees = fields.Many2many('res.partner', string='Attendees')
     # attendees_no = fields.Integer(string="Attendees Number")
 
@@ -58,12 +57,12 @@ class Openacademy_pdf_report(models.TransientModel):
         end_date = self.end_date
         if end_date:
             domain += [('end_date', '<=', end_date)]
-        course_ids = self.course_id.ids
-        if course_ids:
-            domain += [('course', '=', course_ids)]
-        responsible_id = self.responsible_id.id
-        if responsible_id:
-            domain += [('user', '=', responsible_id)]
+        course = self.course.ids
+        if course:
+            domain += [('course', '=', course)]
+        user = self.user.id
+        if user:
+            domain += [('user', '=', user)]
         attendees = self.attendees
         if attendees:
             domain += [('attendees', '=', attendees)]
@@ -77,4 +76,5 @@ class Openacademy_pdf_report(models.TransientModel):
             'session': session,
 
         }
+        print(self.read()[0])
         return self.env.ref('openacademy.wizard_openacademy_report').report_action(self, data=data)

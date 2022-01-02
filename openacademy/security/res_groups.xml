@@ -1,0 +1,25 @@
+<odoo>
+    <data noupdate="1">
+        <record id="res_group_read_session" model="res.groups">
+            <field name="name">Read Access</field>
+        </record>
+
+        <record id="res_group_manager" model="res.groups">
+            <field name="name">OpenAcademy/Manager</field>
+        </record>
+
+        <record model="ir.rule" id="res_group_manager">
+            <field name="name">OpenAcademy/Manager </field>
+            <field name="model_id" ref="model_openacademy_course"/>
+            <field name="groups" eval="[(4,ref('openacademy.res_group_manager'))]"/>
+            <field name="perm_read" eval=""/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+            ['|',('responsible_id','=',False),('responsible_id','=','user.id')]
+            </field>
+        </record>
+    </data>
+
+</odoo>

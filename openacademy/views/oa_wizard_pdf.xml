@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <report id="wizard_openacademy_report"
+            model="openacademy.wizard.pdf"
+            string="Wizard pdf"
+            report_type="qweb-html"
+            name="openacademy.wizard_report_session_view"
+            file="openacademy.wizard_report_session_view"
+    />
+
+ <template id="wizard_report_session_view">
+           <t t-call="web.html_container">
+<!--              <t t-foreach="docs" t-as="doc">-->
+                  <div class="article o_report_layout_standard" t-att-data-oe-model="doc and doc._name" a-att-data-oe-id="doc and doc.id"/>
+                    <t t-call="web.external_layout">
+                      <div class="page">
+                          <div class="text-center mt20">
+                              <h1>Session</h1>
+                          </div>
+<!--                                <span> No of attendees : <t t-esc="form[attendees_no]"/></span>-->
+                          <table class="table table-bordered mt32">
+                              <thead>
+                                  <tr>
+                                      <th name="th_course">Course</th>
+                                      <th name="th_sd">Start Date</th>
+                                      <th name="th_ed">End Date</th>
+                                      <th name="th_res">Attendees</th>
+                                  </tr>
+                              </thead>
+                              <tr>
+                                  <t t-if="form.get('user')">
+                                      <td><t t-esc="form['user'][1]"/></td>
+                                  </t>
+                                  <t t-if="form.get('start_date')">
+                                      <td> <t t-esc="form['start_date']"/></td>
+                                  </t>
+                                  <t t-if="form.get('end_date')">
+                                      <td> <t t-esc="form['end_date']"/></td>
+                                  </t>
+                                  <t t-if="form.get('course')">
+                                      <td> <t t-esc="form['course'][1]"/></td>
+                                  </t>
+
+                              </tr>
+<!--                                <tbody>-->
+<!--                                  <t t-foreach="session" t-as="jox">-->
+<!--                                    <tr>-->
+
+<!--                                      <t t-if="form.get('course')">-->
+<!--                                       <td><span t-esc="jox['course'][0]"/></td>-->
+<!--                                      </t>-->
+
+<!--                                      <t t-if="form.get('start_date')">-->
+<!--                                      <td><span t-esc="jox['start_date']"/></td>-->
+<!--                                      </t>-->
+
+<!--                                       <t t-if="form.get('end_date')">-->
+<!--                                      <td><span t-esc="jox['end_date']"/></td>-->
+<!--                                       </t>-->
+
+
+<!--&lt;!&ndash;                                          <td><span t-esc="jox['name']"/></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          <td><span t-esc="jox['attendees']"/></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      &ndash;&gt;-->
+<!--                                      </tr>-->
+<!--                                  </t>-->
+
+
+<!--                              </tbody>-->
+                          </table>
+
+                      </div>
+                </t>
+              </t>
+<!--           </t>-->
+ </template>
+</odoo>

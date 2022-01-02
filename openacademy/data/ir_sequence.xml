@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="1">
+        <record id="openacademy_course" model="ir.sequence">
+            <field name="name">openacademy course</field>
+            <field name="code">openacademy.course.sequence</field>
+            <field name="prefix">Sacked/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field name="padding">4</field>
+         </record>
+    </data>
+</odoo>
