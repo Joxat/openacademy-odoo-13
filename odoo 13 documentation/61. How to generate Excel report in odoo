@@ -1,0 +1,109 @@
+to generate and excel report all you need is to do the following 
+
+there's an addon called Base report xlsx. Search for it download it, add it to the custom addons then install it on odoo
+
+there are some python packages you need to install before installing the module 
+
+pip install xlswriter
+pip install xlrd
+
+now after you have installed the addon what 
+add it inside of the depends tags {'report_xlsx'}
+
+now if you go to reports and check paper format option you'll see that XLSX has appeared
+
+add a report tag to generate an xlsx file 
+
+<report 
+        id="action_report_saleorder_xlsx"
+	string="Quotation / Order XLSX"
+	model="openacademy.session"
+	report_type="xlsx"
+        name="openacademy.report_saleorder_xlsx"
+        file="opneacademy.report_saleorder_xlsx"
+        print_report_name="(object.state in ('draft','sent') and 'Quotation - %s' %(object.name) or 'Order - %s' % (object.name))"
+        #this says if the state is send or draft call Quotation otherwise go for Order 
+ />
+ 
+ 
+ now in the .py file 
+  from odoo import models, fields, api, _
+  
+  class Openacademy_Xlsx(models.AbstractModel):
+     _name = 'report.openacademy.report_session_view'
+     _inherit = 'report.report_xlsx.abstract' #to inherit from the existing model that's called Base
+     
+     def generate_xlsx_report(self, workbook, data, orders):
+     for order in orders:
+        sheet = workbook.add_worksheet('report')
+        bold = workbook.add_format({'bold':True})
+        sheet.write(0,0,order.name,bold) # so this sheet.write(row,column,#order or whatever you set instead of orders then on of the fields of the addons) 
+        
+    this is a way to print one sheet name of the model that's called Base report xlsx
+    to add more sheet.write() if you want to add more row in the report  
+    
+    
+    
+the better way instead of adding a sheet after sheet is to add a function (method)
+so it is depending on the module you are inheriting from 
+
+so what i'll do is to demonstrate it each step by step
+so first of all what you're gonna do is to prepare the header 
+then you prepare the body of the report 
+then the footer
+
+let us start with the header
+so the header usually represents the company name, company address , logo and streets , so in order to get that done create a company header and logo
+
+** note before starting that the logo is an image and it has to be converted into bytes , steps are the same , just do them and replace it each time according to your information **
+
+let's say                      
+company.logo:
+   image_data = io.BytesIO(base64.b64decode(company.logo))
+   sheet.insert_image(row, 1, 'logo.png', {'image_data':'image_data'})
+   sheet.write(0, 0, order.name,bold)
+   sheet.write(0, 0, order.name,bold)
+   sheet.write(0, 0, order.name,bold)
+   sheet.write(0, 0, order.name,bold)  
+   
+   
+   
+   
+
+i'm here using my module (openacademy)
+  	 class Openacademy_Xlsx(models.AbstractModel):
+     _name = 'report.openacademy.report_session_view'
+     _inherit = 'report.report_xlsx.abstract'
+     
+     
+     def company_xlsx(self, row, sheet, company, bold):
+        company = company.name
+        country = company.country_id.name
+        street = f"{company.street} {company.street2}"
+        company.logo:
+	    image_data = io.BytesIO(base64.b64decode(company.logo))
+	    sheet.insert_image(row, 1, 'logo.png', {'image_data':'image_data'})
+	    sheet.write(0, 0, company, bold)
+	    sheet.write(0, 0, country, bold)
+	    sheet.write(0, 0, street ,bold)
+	       
+     
+     def generate_xlsx_report(self, workbook, data, orders):
+     for order in orders:
+        sheet = workbook.add_worksheet('report')
+        bold = workbook.add_format({'bold':True})
+       
+
+
+ OR 
+ 
+ just add them in sequence one after another :)) and it is preferable
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,38 @@
+to call a custom log in odoo
+
+import 2 lines
+
+from odoo.tools.misc import get_lang
+import logging 
+
+now set a value ( call it logger ) 
+
+
+logger = logging.getlogger()
+
+it has many parameters 
+
+__name__ get the name of the module 
+
+ and now after that target where you want to call the log after
+ 
+ so for example if the email is set or when the state changes from draft to in progress is done :) 
+
+this logger has many attributes
+
+logger.info()
+logger.error()
+ 
+the best way to apply what's inside of them is thru the format way
+
+    def action_validate(self):
+        for record in self:
+            logger.info(f"Course{record.name} is in progress now by {self.env.user.name} ")
+            record.write({'state': 'in_progress'})
+
+add info error in anywhere
+
+
+ 
+ 
+ 

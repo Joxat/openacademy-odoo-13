@@ -1,0 +1,39 @@
+to add a custom css in odoo then do the following 
+
+create a .xml file name it whatever 
+create a css file in the static file 
+add the xml file to the manifest file
+
+in the xml file inherit from web.assets_backend 
+
+<odoo>
+<template inherit_id="web.assets_backend" id="assets_backend_whatever" name="OA_assets_backend">
+<xpath expr="." position="inside">
+   <link rel="stylesheet" type="text/css" href="/openacademy/static/css/style.css"/>
+</xpath>
+</template>
+</odoo>
+
+and now in the css file you can customize it according to the class you define in the xml file
+ 
+now customize it according to your CSS knowledge :)   
+         
+       
+     
+     
+     
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

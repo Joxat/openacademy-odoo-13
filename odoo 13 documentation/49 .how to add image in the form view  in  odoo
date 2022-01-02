@@ -1,0 +1,24 @@
+to add an image in the form view in odoo : 
+
+define an image as a field
+notice that images are conventionally named in numbers
+
+image_100 = fields.Image(String='Image')
+
+<field name='image_100' widget='image' class='oe_avatar' options={'preview_image':'image_128', 'zoom_delay':500}/>
+
+image_128 is the one of the images type 
+
+
+options has different parameters as well 
+
+preview_image : contains many types one of them is 'image_128'
+zoodelay : number in ms
+
+
+and hop in the form view and then edit or 
+
+
+
+be sorely disappointed
+

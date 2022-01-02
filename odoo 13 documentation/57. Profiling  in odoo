@@ -1,0 +1,32 @@
+profiling is just showing how long does it take for a method to load or to execute (Shows the statistics of a certain method) 
+
+there are 2 ways to show the profiling 
+1.Graph method
+2.Log method
+
+the difference in the implementation doesn't vary a lot
+
+
+1. Graph method
+
+from odoo.tools.misc import profile # this is common for both 
+
+@profile('/temp/prof.profile')
+def the_func('here you pass the ')
+
+then you can show the graph thru 2 codes 'they are found in the odoo official website :) '
+
+2. Log method
+it'll show the stats of the method in a log form 
+
+from odoo.tools.profiler import profile
+
+and then then target the function in which you want to check its optimity
+
+@profile
+@api.model
+def the_func()
+
+
+
+

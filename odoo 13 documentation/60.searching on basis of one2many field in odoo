@@ -1,0 +1,5 @@
+to search based on the one2many field
+
+     <field name="attendees" filter_domain="[('attendees.display_name', 'ilike', self)]" />
+     
+     follow the instruction as it tells :) 

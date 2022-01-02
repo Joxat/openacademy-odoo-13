@@ -1,0 +1,38 @@
+just a quick recap for excel functions in odoo
+
+
+
+
+1. the MAIN function/method regulary have the 4 upcoming argument and looks more like :
+def generate_xlsx(self, workbook, data, orders):
+
+
+2. now there is format and sheet that are a part of every excel file you are creating
+ sheet = workbook.add_worksheet('report')
+ bold = workbook.add_format({'bold':True})
+ 
+ the sheet represents the name of the sheet
+ bold is just one of the formats of the sheet # you can name it anything e.g format1 , format2 and format3
+ format is just a way to set a css style inside of it , e.g 'align':'center'
+
+3. sheet.set_column('D:D', 15) the is a the way to extend a field's width the first parameter for the column's width 
+4. sheet.write(0,0,order.name,bold) this is to show the record in excel ( note that order.name is a field that indicates to one of the fields of the existing model )
+
+5.sheet.merge_range(row, col, row, col+1, 'Session', any_format!!) this extends from row to row and from col to col+1 
+6. to add an image in odoo excel report just follow the conventional methodology
+first you import the following importations
+
+import io
+import base64
+
+  if order.image_100: # this is the name of the image i set in the model
+         image_data = io.BytesIO(base64.b64decode(order.image_100))
+         sheet.insert_image(row, col, 'logo.png', {'image_data': image_data, 'x_scale': 0.05, 'y_scale': 0.05})
+
+the submethod/subfunctions that you are going to insert in the 
+
+
+
+
+
+

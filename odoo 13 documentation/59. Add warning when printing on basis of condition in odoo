@@ -1,0 +1,81 @@
+create a .py file in the reports 
+then create a __init__.py also
+
+inside of it you're gonna import the following 
+"" let's say you give a name of reports "" 
+
+from odoo import models, fields, api 
+from odoo.exception import UserError
+
+now the class type has to be abstractmodel
+
+class SessionReport(models.AbstractModel):
+   _name = "report.openacademy.t" the naming here is a bit different , it starts report then the module name and then the template name (template name is in settings > technical > reports , then search for the reports name and then get the template's name)
+then use the special method called   get report values
+this method is designed so that the doc id of a certain 
+   @api.model
+   def _get_report_values(self,docids,data=None):
+   
+   return{
+   'doc_ids': docids,
+   'doc_model': 'openacademy.session',
+   'docs': self.env['openacademy.session'].browse(docids)
+   
+   }
+      
+      this is the normal of it 
+      now you can customize it as much as you can 
+      
+      @api.model
+      def _get_report_values(self,docids,data=None):
+         
+         sessions = self.env['openacademy.session'].browse(docids)
+         for session in sessions:
+           if len(session.attendees) == 0:
+             raise UserError ('no attendees')
+      return{
+        'doc_ids': docids,
+         'doc_model': 'openacademy.session',
+        'docs': self.env['openacademy.session'].browse(docids)
+            }
+      or you can set it to certain group
+      if this user has to be linked to a certain group then use has_group
+
+      @api.model
+      def _get_report_values(self,docids,data=None):
+         if not self.env.user.has_group()
+         sessions = self.env['openacademy.session'].browse(docids)
+         for session in sessions:
+           if len(session.attendees) == 0:
+             raise UserError ('no attendees')
+      return{
+        'doc_ids': 'docids',
+         'doc_model': 'openacademy.session',
+        'docs': self.env['openacademy.session'].browse(docids)
+            }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+            
+            
+            
+            
+            
+            
+            
+            
+            
+  

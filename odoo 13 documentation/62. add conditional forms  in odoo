@@ -1,0 +1,30 @@
+to add a conditional formatting in odoo simply just in the method you have created for the report
+
+
+def method(self, workbook, data, orders):
+   formula1 = workbook.add_format({'':}) #here you can add anything you want including css
+   
+  formula1 = workbook.add_format({'align':'center'})
+    formula1 = workbook.add_format({'num_format':'yyyy-mm-dd'}) this is for date field 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

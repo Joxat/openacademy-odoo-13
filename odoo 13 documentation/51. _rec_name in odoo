@@ -1,0 +1,16 @@
+rec name is just what the other models see of a model when you inherit from it
+
+
+just below the model add 
+
+_rec_name = 'name of the field' and if you inherit it from another model then what you'll see is the name of the field
+
+*** this one works only on the many2one type ??  
+
+
+
+
+
+
+
+

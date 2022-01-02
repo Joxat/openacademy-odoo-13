@@ -1,0 +1,51 @@
+how to search to different values on a field in odoo
+
+the search in odoo looks like, search based on this field, if not then search based on the other field and the cycle continues 
+
+so the syntax is simmilar to what's in name_get(self)
+
+
+@api.model
+def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid_None):
+  if not args:
+    args = []
+  if name:
+    course = self._search([('name', '=', name)] + args, limit=limit, access_rights_uid=name_get_uid)
+      if not course: #this says if not the value of this course in which the name=name then try another one 
+        course = self._search([('course', '=', name)])
+  else:
+        course = self._search(args, limit=limit, access_rights_uid=name_get_uid)
+  return models.lazy_name_get(self.browse(course)).with_user(name_get_uid)
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

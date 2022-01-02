@@ -1,0 +1,55 @@
+this method is just to move a model from a view to another view thru a button
+
+to create an action for an exissting module do the following 
+
+find the module that has the feature then navigate it's model 
+it is found in the many2many fields that are connected to a certain form view 
+for example in the sale module in the form view of the products then the many2many page click on a product 
+
+e.g in the sale module > order > quatation and then pick one of the qoutations 
+you'll see the form view of one of the quotations poping up, in its many2many field just click on it and an action will pop up
+this is the action i mean lol 
+
+
+you just inherit a model that has the same feature 
+
+and then create a button that moves you from view to another "object type"
+
+and in the custom module you created to inherit the specific id
+
+e.g 
+
+_inherit =  sale.order.line
+
+here you want to insert a button that moves you from the form view you are in to another view 
+
+you can do this anywhere thru python method ( which done normally thru actions ) 
+
+so call the method create a button , insert it literally wherever you want !!! 
+
+<button name='move_to_tree' type='' string='' >
+
+</button> 
+
+
+def move_to_tree(self):
+  return{
+  'name':,
+  'res_model':'sale.order.line',
+  'view_model':'tree,form',
+  'domain':'',
+  'context':{},
+  'type':'ir.actions.act_windows',
+  'view':[(self.env.ref(od_sales.view.sdwaasd).id, 'tree')]
+  }
+  
+
+
+
+ 
+
+
+
+
+
+

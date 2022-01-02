@@ -1,0 +1,19 @@
+it is so simple
+
+in your .py file in any model without actually targetting any field  
+it is a somewhat ready-made function/method called name_get 
+
+
+def name_get(self): 
+   result = []
+   for record in self:
+     name = f"{record.name} {record.course_id}"     #record.field that you have defined in your model :*(
+     result.append((record.id, name))
+   return result 
+
+
+
+
+
+
+

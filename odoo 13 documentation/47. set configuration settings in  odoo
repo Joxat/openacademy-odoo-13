@@ -1,0 +1,125 @@
+set config settings in odoo 
+
+
+to set a configuration settings then do the following:
+
+1. target a module that has the configuration and then settings
+2. then target the action of the module 
+ 
+ it has external_id of sale.action_sale_config_settings
+ now target the action_sale_config_settings look up for the record
+ 
+1. first copy the record
+2. 2nd adjust the menuitem and the action based on the module (the first menu indicates to the main menu of the model, the second to be the submenu of the first menu...etc) you know how !!!
+3.now in the action it should have the same id as the action of the meant menuitem 
+ 
+ <record id="action_openacademy_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form_openacademy"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'openacademy', 'bin_size': False}</field>
+    </record>
+    
+    <menuitem id="menu_openacademy_configuration"
+        name="configuration"
+        parent="main_open_academy"
+        sequence="1000"
+        groups="base.group_system"
+    />
+    
+    <menuitem id="menu_openacademy_settings"
+        name="Settings"
+        parent="menu_openacademy_configuration"
+        sequence="0"
+        action="action_openacademy_config_settings"
+        groups="base.group_system"/>
+        
+        
+        
+note that the action ref has to be the same as in the record of settings        
+        
+        
+then create a .py file to inherit the res config settings module
+
+inside of it create a transient model
+inherit from the res.config.settings
+
+
+from odoo import fields, models, api ,_ 
+ you're gonna have to inherit the model that has the configuration  _inherit = 'res.config.settings'
+ 
+ now after that create the fields in which you want to set defaults value for them ( check for field's type it should be the same as the one in the targetted model )
+
+    seats_default = fields.Integer('Allowed Seats')
+    duration_default = fields.Float('Allowed duration')
+
+    now after that you have to set values for the fields '
+    it is done thru set_values
+    
+    call the api model
+    def set_values(self):
+    ICP = self.env['ir.config_parameter'].sudo #this is manadatory if you want to the values to be appearing on the settings model :) 
+    then you use OOM
+    ICP.set_param(model.the_meant_field,self.the_meant_field)
+    then return the model
+     return super(Resconfig, self).set_values()
+
+    @api.model
+    def set_values(self):
+        ICP = self.env['ir.config_parameter'].sudo()
+        ICP.set_param('openacademy.seats_default', self.seats_default)
+        ICP.set_param('openacademy.duration_default', self.duration_default)
+        super(Resconfig, self).set_values()
+        
+   then after setting values you get values !
+   
+   
+   @api.model
+    def get_values(self):
+        ICP = self.env['ir.config_parameter'].sudo()
+        res = super(Resconfig, self).get_values()
+        res['seats_default'] = ICP.get_param('openacademy.seats_default', default=0)
+        res['duration_default'] = ICP.get_param('openacademy.duration_default', default=0)
+        return res
+        
+        
+        
+  NOW after that it's time to set defualt values in the field
+  hereby you got 2 ways to set a default value of a certain field
+  on is to set a static number or a string
+  or you call a method !! 
+  
+  
+  to call a method then you need to define a function for it 
+  let's say the duration field 
+  
+      duration = fields.Float(string='Duration', digits=(6, 2), help='Duration in days', default= )
+      in the default let's call the method
+      
+      def set_duration(self):
+              ICP = self.env['ir.config_parameter'].sudo()
+	      default_duration = ICP.get_param('openacademy.duration_default')
+              return default_duration
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
